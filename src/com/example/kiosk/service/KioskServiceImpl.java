@@ -10,11 +10,13 @@ public class KioskServiceImpl implements KioskService{
     private final InitService initService;
     private final PrintService printService;
     private final FindItemService findItemService;
+    private final InputService inputService;
 
-    public KioskServiceImpl(InitService initService, PrintService printService, FindItemService findItemService) {
+    public KioskServiceImpl(InitService initService, PrintService printService, FindItemService findItemService, InputService inputService) {
         this.initService = initService;
         this.printService = printService;
         this.findItemService = findItemService;
+        this.inputService = inputService;
     }
 
     @Override
@@ -23,12 +25,17 @@ public class KioskServiceImpl implements KioskService{
     }
 
     @Override
+    public int input() {
+        return inputService.input();
+    }
+
+    @Override
     public void printMenu() {
         printService.printMenu();
     }
 
     @Override
-    public void printMenuItems(Food foodKind) throws Exception {
+    public void printMenuItems(Food foodKind) {
         try{
             printService.printMenuItems(foodKind);
             printService.lastSentence("뒤로가기");

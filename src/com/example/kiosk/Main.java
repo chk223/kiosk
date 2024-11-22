@@ -13,7 +13,9 @@ public class Main {
         PrintService printService = new PrintServiceImpl(menuItemRepository);
         InitService initService = new InitServiceImpl(menuItemRepository);
         FindItemService findItemService = new FindItemServiceImpl(menuItemRepository);
-        KioskService kioskService = new KioskServiceImpl(initService,printService, findItemService);
+        InputService inputService = new InputServiceImpl();
+
+        KioskService kioskService = new KioskServiceImpl(initService,printService, findItemService,inputService);
         Kiosk kiosk = new Kiosk(kioskService);
         kiosk.start();
     }

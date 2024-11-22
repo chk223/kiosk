@@ -22,19 +22,16 @@ public class Kiosk {
             kioskService.printLastSentence("종료");
             int number = 0;
             try {
-                System.out.print("출력 된 번호를 선택하세요: ");
-                number = input();
-            }catch (InputMismatchException e) {
-                System.out.println("입력이 잘못되었습니다. 1,2,3,0의 정수를 입력하세요.");
+                number = kioskService.input();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.printf(e.getMessage());
             }
             if(number==0) return;
             Food foodKind = Food.findFoodByIndex(number);
             while(true) {
                 try {
                     kioskService.printMenuItems(foodKind);
-                    if(kioskService.process(input(),foodKind)) break;
+                    if(kioskService.process(kioskService.input(),foodKind)) break;
                 } catch (Exception e) {
                     System.out.println("입력이 잘못되었습니다. 1,2,3,0의 정수를 입력하세요.");
                 }
@@ -44,11 +41,6 @@ public class Kiosk {
 
     /**
      * 입력
-     * @return 로직이 잘 실행되었는지 여부 잘 되면 true 반환.
      */
-    private int input() throws Exception {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
-    }
 
 }

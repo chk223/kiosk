@@ -13,6 +13,8 @@ public interface KioskService {
      */
     void init();
 
+    int input();
+
     public void printMenuItems(Food foodKind) throws Exception;
     /**
      * 메뉴 출력
