@@ -31,7 +31,7 @@ public class PrintServiceImpl implements PrintService{
     }
 
     @Override
-    public void printBurgers(Scanner scanner) {
+    public void printBurgers() {
         System.out.println("[ BURGERS MENU ]");
         List<MenuItem> items = menuItemRepository.getBurger();
         AtomicInteger index = new AtomicInteger(1);
@@ -41,7 +41,7 @@ public class PrintServiceImpl implements PrintService{
         });
     }
     @Override
-    public void printDrinks(Scanner scanner) {
+    public void printDrinks() {
         System.out.println("[ DRINKS MENU ]");
         List<MenuItem> items = menuItemRepository.getDrink();
         AtomicInteger index = new AtomicInteger(1);
@@ -51,7 +51,7 @@ public class PrintServiceImpl implements PrintService{
         });
     }
     @Override
-    public void printDesserts(Scanner scanner) {
+    public void printDesserts() {
         System.out.println("[ DESSERTS MENU ]");
         List<MenuItem> items = menuItemRepository.getDessert();
         AtomicInteger index = new AtomicInteger(1);

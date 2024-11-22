@@ -29,7 +29,7 @@ public class KioskServiceImpl implements KioskService{
     @Override
     public void BurgerProcess(Scanner scanner) {
         while(true) {
-            printService.printBurgers(scanner);
+            printService.printBurgers();
             printService.lastSentence("뒤로가기");
             try{
                 System.out.print("출력 된 번호를 선택하세요: ");
@@ -55,7 +55,7 @@ public class KioskServiceImpl implements KioskService{
     @Override
     public void DrinksProcess(Scanner scanner) {
         while(true) {
-            printService.printDrinks(scanner);
+            printService.printDrinks();
             printService.lastSentence("뒤로가기");
             try{
                 System.out.print("출력 된 번호를 선택하세요: ");
@@ -81,7 +81,7 @@ public class KioskServiceImpl implements KioskService{
     @Override
     public void DessertProcess(Scanner scanner) {
         while(true) {
-            printService.printDesserts(scanner);
+            printService.printDesserts();
             printService.lastSentence("뒤로가기");
             try{
                 System.out.print("출력 된 번호를 선택하세요: ");
