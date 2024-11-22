@@ -1,5 +1,7 @@
 package com.example.kiosk;
 import com.example.kiosk.service.KioskService;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -19,6 +21,7 @@ public class Kiosk {
             kioskService.printMenu();
             kioskService.printLastSentence("종료");
             try{
+                System.out.print("출력 된 번호를 선택하세요: ");
                 int number = scanner.nextInt();
                 switch (number) {
                     case 1:
@@ -35,7 +38,10 @@ public class Kiosk {
                     default:
                         System.out.println("입력이 잘못되었습니다.(1~3의 숫자를 입력해주세요.)");
                 }
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
+                System.out.println("입력이 잘못되었습니다. 1,2,3,0의 정수를 입력하세요.");
+                scanner.nextLine();//입력 버퍼 비우기
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
