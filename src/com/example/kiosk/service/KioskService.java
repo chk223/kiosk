@@ -1,5 +1,7 @@
 package com.example.kiosk.service;
 
+import com.example.kiosk.domain.Food;
+
 import java.util.Scanner;
 
 /**
@@ -11,27 +13,20 @@ public interface KioskService {
      */
     void init();
 
+    public void printMenuItems(Food foodKind) throws Exception;
     /**
      * 메뉴 출력
      */
     void printMenu();
 
     /**
-     * 번호를 입력 받아 해당하는 버거의 정보 출력
-     * @param scanner 스캐너 객체를 한 개로 돌려쓰기
+     * 해당 음식 종류의 인덱스를 통해 음식 출력
+     * @param number 인덱스
+     * @param foodKind 음식 종류
+     * @return True/false: 제대로 된 입력을 받을 때까지 반복여부
+     * @throws Exception
      */
-    void BurgerProcess(Scanner scanner);
-
-    /**
-     * 번호를 입력 받아 해당하는 음료의 정보 출력
-     *      * @param scanner 스캐너 객체를 한 개로 돌려쓰기
-     */
-    void DrinksProcess(Scanner scanner);
-    /**
-     * 번호를 입력 받아 해당하는 디저트의 정보 출력
-     * @param scanner 스캐너 객체를 한 개로 돌려쓰기
-     */
-    void DessertProcess(Scanner scanner);
+    Boolean process(int number, Food foodKind) throws Exception;
 
     /**
      * 내용 출력 후 마지막 동작 (뒤로가기, 종료) 메시지 출력

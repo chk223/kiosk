@@ -1,5 +1,6 @@
 package com.example.kiosk.service;
 
+import com.example.kiosk.domain.Food;
 import com.example.kiosk.domain.MenuItem;
 
 import java.util.Scanner;
@@ -20,19 +21,9 @@ public interface PrintService {
     public void printMenu();
 
     /**
-     * 모든 버거 출력
+     * 음식 종류에 따라 모든 메뉴 출력
      */
-    public void printBurgers();
-    /**
-     * 모든 음료 출력
-     */
-    public void printDrinks();
-
-    /**
-     * 모든 디저트 출력
-     */
-    public void printDesserts();
-
+    public void printMenuItems(Food food) throws Exception;
     /**
      * 내용이 출력된 뒤 action에 따라 마지막 문장 출력
      * ex) 0. action

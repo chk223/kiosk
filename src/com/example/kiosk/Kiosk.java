@@ -1,6 +1,6 @@
 package com.example.kiosk;
+import com.example.kiosk.domain.Food;
 import com.example.kiosk.service.KioskService;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,37 +15,40 @@ public class Kiosk {
     }
 
     public void start() {
+        System.out.println(Food.findFoodByIndex(1));
         kioskService.init();
-        Scanner scanner = new Scanner(System.in);
         while(true) {
             kioskService.printMenu();
             kioskService.printLastSentence("종료");
-            try{
+            int number = 0;
+            try {
                 System.out.print("출력 된 번호를 선택하세요: ");
-                int number = scanner.nextInt();
-                switch (number) {
-                    case 1:
-                        kioskService.BurgerProcess(scanner);
-                        break;
-                    case 2:
-                        kioskService.DrinksProcess(scanner);
-                        break;
-                    case 3:
-                        kioskService.DessertProcess(scanner);
-                        break;
-                    case 0:
-                        return;
-                    default:
-                        System.out.println("입력이 잘못되었습니다.(1~3의 숫자를 입력해주세요.)");
-                }
-            } catch (InputMismatchException e) {
+                number = input();
+            }catch (InputMismatchException e) {
                 System.out.println("입력이 잘못되었습니다. 1,2,3,0의 정수를 입력하세요.");
-                scanner.nextLine();//입력 버퍼 비우기
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            if(number==0) return;
+            Food foodKind = Food.findFoodByIndex(number);
+            while(true) {
+                try {
+                    kioskService.printMenuItems(foodKind);
+                    if(kioskService.process(input(),foodKind)) break;
+                } catch (Exception e) {
+                    System.out.println("입력이 잘못되었습니다. 1,2,3,0의 정수를 입력하세요.");
+                }
+            }
         }
+    }
 
+    /**
+     * 입력
+     * @return 로직이 잘 실행되었는지 여부 잘 되면 true 반환.
+     */
+    private int input() throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
     }
 
 }

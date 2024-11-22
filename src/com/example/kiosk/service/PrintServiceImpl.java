@@ -1,5 +1,6 @@
 package com.example.kiosk.service;
 
+import com.example.kiosk.domain.Food;
 import com.example.kiosk.domain.MenuItem;
 import com.example.kiosk.repository.MenuItemRepository;
 
@@ -31,35 +32,22 @@ public class PrintServiceImpl implements PrintService{
     }
 
     @Override
-    public void printBurgers() {
-        System.out.println("[ BURGERS MENU ]");
-        List<MenuItem> items = menuItemRepository.getBurger();
+    public void printMenuItems(Food food) throws Exception {
+        System.out.println("[ "+food+"S MENU ]");
+        List<MenuItem> items;
+        switch (food) {
+            case BURGER -> items = menuItemRepository.getBurger();
+            case DRINK -> items = menuItemRepository.getDrink();
+            case DESSERT -> items = menuItemRepository.getDessert();
+            default -> throw new Exception("잘못된 음식 종류입니다.");
+        }
         AtomicInteger index = new AtomicInteger(1);
         items.forEach(item -> {
             String blank = blank_format(item.getItemName());
             System.out.println(index.getAndIncrement()+". "+item.getItemName()+blank+"|  W "+item.getPrice()+" |  "+ item.getDescription());
         });
     }
-    @Override
-    public void printDrinks() {
-        System.out.println("[ DRINKS MENU ]");
-        List<MenuItem> items = menuItemRepository.getDrink();
-        AtomicInteger index = new AtomicInteger(1);
-        items.forEach(item -> {
-            String blank = blank_format(item.getItemName());
-            System.out.println(index.getAndIncrement()+". "+item.getItemName()+blank+"|  W "+item.getPrice()+" |  "+ item.getDescription());
-        });
-    }
-    @Override
-    public void printDesserts() {
-        System.out.println("[ DESSERTS MENU ]");
-        List<MenuItem> items = menuItemRepository.getDessert();
-        AtomicInteger index = new AtomicInteger(1);
-        items.forEach(item -> {
-            String blank = blank_format(item.getItemName());
-            System.out.println(index.getAndIncrement()+". "+item.getItemName()+blank+"|  W "+item.getPrice()+" |  "+ item.getDescription());
-        });
-    }
+
 
     /**
      * 상품과 가격의 경계선을 일정하게 그어 주기 위한 공백설정
