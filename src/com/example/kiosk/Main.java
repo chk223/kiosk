@@ -10,13 +10,9 @@ public class Main {
     public static void main(String[] args) {
         //객체 생성
         MenuItemRepository menuItemRepository = new MenuItemMemoryRepository();
-        PrintService printService = new PrintServiceImpl(menuItemRepository);
-        InitService initService = new InitServiceImpl(menuItemRepository);
-        FindItemService findItemService = new FindItemServiceImpl(menuItemRepository);
-        InputService inputService = new InputServiceImpl();
-
-        KioskService kioskService = new KioskServiceImpl(initService,printService, findItemService,inputService);
-        Kiosk kiosk = new Kiosk(kioskService);
+        ScannerService scannerService = new ScannerServiceImpl(menuItemRepository);
+        KioskManager kioskManager = new KioskManagerImpl(scannerService,menuItemRepository);
+        Kiosk kiosk = new Kiosk(kioskManager);
         kiosk.start();
     }
 }

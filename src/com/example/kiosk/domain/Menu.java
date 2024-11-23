@@ -4,51 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private final List<MenuItem> burger;
-    private final List<MenuItem> drink;
-    private final List<MenuItem> dessert;
+    private String name;
+    private final int number;
+    private List<MenuItem> menuItems;
 
-    public Menu() {
-        burger = new ArrayList<>();
-        drink = new ArrayList<>();
-        dessert = new ArrayList<>();
+    public Menu(String name,int number) {
+        this.name = name;
+        this.menuItems = new ArrayList<>();
+        this.number = number;
     }
 
-    public List<MenuItem> getDrink() {
-        return drink;
+    public int getNumber() {
+        return number;
     }
 
-    public void addDrink(MenuItem menuItem) {
-        drink.add(menuItem);
+    public String getName() {
+        return name;
     }
 
-    public void deleteDrink(MenuItem menuItem) {
-        drink.remove(menuItem);
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
     }
 
-
-    public List<MenuItem> getDessert() {
-        return dessert;
+    public void addMenuItem(MenuItem item) {
+        menuItems.add(item);
     }
-
-    public void addDessert(MenuItem menuItem) {
-        dessert.add(menuItem);
+    public void removeMenuItem(MenuItem item) {
+        menuItems.remove(item);
     }
-
-    public void deleteDessert(MenuItem menuItem) {
-        dessert.remove(menuItem);
+    public MenuItem getMenuItemByIndex(int index) {
+        return menuItems.get(index-1);
     }
-
-
-    public List<MenuItem> getBurger() {
-        return burger;
-    }
-    public void addBurger(MenuItem menuItem) {
-        burger.add(menuItem);
-    }
-
-    public void deleteBurger(MenuItem menuItem) {
-        burger.remove(menuItem);
-    }
-
 }
