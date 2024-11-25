@@ -14,7 +14,6 @@ public class Kiosk {
         kioskManager.init();
         while(maximum_count>0) {
             kioskManager.printMenu();
-            kioskManager.printLastSentence("종료");
             int number = 0;
             String name = "";
             try {
@@ -33,7 +32,7 @@ public class Kiosk {
                         System.out.println("두 번째 입력 받을 차례");
                         number = kioskManager.input();
                         if(number == 0) break;
-                        kioskManager.process(name,number);
+                        kioskManager.printSelectedMenuItem(name,number);
                         break;
                     } catch (Exception e) {
                         System.out.println(e.getMessage());

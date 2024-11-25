@@ -1,22 +1,23 @@
 package com.example.kiosk.service;
+import com.example.kiosk.domain.Menu;
 import com.example.kiosk.domain.MenuItem;
-import com.example.kiosk.repository.MenuItemRepository;
+import com.example.kiosk.repository.MenuRepository;
 
 import java.util.Arrays;
 
 public class KioskManagerImpl implements KioskManager {
-    private final ScannerService scannerService;
-    private final MenuItemRepository menuItemRepository;
+    private final KioskScanner kioskScanner;
+    private final MenuRepository menuRepository;
 
-    public KioskManagerImpl(ScannerService scannerService, MenuItemRepository menuItemRepository) {
-        this.scannerService = scannerService;
-        this.menuItemRepository = menuItemRepository;
+    public KioskManagerImpl(KioskScanner kioskScanner, MenuRepository menuRepository) {
+        this.kioskScanner = kioskScanner;
+        this.menuRepository = menuRepository;
     }
 
     @Override
     public int input() throws Exception {
         try{
-            return scannerService.input();
+            return kioskScanner.input();
         } catch (Exception e) {
             throw new Exception(e);
         }
@@ -24,7 +25,8 @@ public class KioskManagerImpl implements KioskManager {
 
     @Override
     public void printMenu() {
-        scannerService.printMenu();
+        kioskScanner.printMenu();
+        kioskScanner.lastSentence("종료");
     }
 
     @Override
@@ -32,8 +34,8 @@ public class KioskManagerImpl implements KioskManager {
         if(index == 0) return "exit";
         String name = getMenuNameByIndex(index);
         try{
-            scannerService.printMenuItems(name);
-            scannerService.lastSentence("뒤로가기");
+            kioskScanner.printMenuItems(name);
+            kioskScanner.lastSentence("뒤로가기");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -42,17 +44,12 @@ public class KioskManagerImpl implements KioskManager {
 
 
     @Override
-    public void process(String name, int number) throws Exception {
+    public void printSelectedMenuItem(String name, int number) throws Exception {
         try{
-            scannerService.printSelectedMenuItem(name,number);
+            kioskScanner.printSelectedMenuItem(name,number);
         } catch (Exception e) {
             throw new Exception("해당하는 인덱스의 음식이 없습니다!!");
         }
-    }
-
-    @Override
-    public void printLastSentence(String action) {
-        scannerService.lastSentence(action);
     }
 
     @Override
@@ -63,12 +60,11 @@ public class KioskManagerImpl implements KioskManager {
     }
     public String getMenuNameByIndex(int index) throws Exception {
         try{
-            return menuItemRepository.getMenuNameByIndex(index);
+            return menuRepository.getMenuNameByIndex(index);
         } catch (Exception e) {
             throw new Exception("번호에 해당하는 메뉴가 없습니다!!");
         }
     }
-
 
     public void initBurger(String name) {
         Object[][] initData =
@@ -100,10 +96,16 @@ public class KioskManagerImpl implements KioskManager {
         Arrays.stream(initData).parallel().forEachOrdered(data-> {//병렬 스트림을 사용하여 많은 데이터를 효율적으로 처리, 순서를 위해 ordered추가
             try{
                 MenuItem menuItem = new MenuItem((String)data[0],(double)data[1],(String)data[2]);
-                menuItemRepository.saveItem(menuItem,name);
+                Menu menu = menuRepository.findMenu(name);
+                menuRepository.saveItem(menu,menuItem);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
+    }
+
+    public void removeMenuItem(String name, MenuItem menuItem) {
+        Menu menu = menuRepository.findMenu(name);
+        menuRepository.removeItem(menu,menuItem);
     }
 }

@@ -1,22 +1,22 @@
 package com.example.kiosk.service;
 import com.example.kiosk.domain.Menu;
 import com.example.kiosk.domain.MenuItem;
-import com.example.kiosk.repository.MenuItemRepository;
+import com.example.kiosk.repository.MenuRepository;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ScannerServiceImpl implements ScannerService {
-    private final MenuItemRepository menuItemRepository;
+public class KioskScannerImpl implements KioskScanner {
+    private final MenuRepository menuRepository;
     Scanner scanner = new Scanner(System.in);
 
-    public ScannerServiceImpl(MenuItemRepository menuItemRepository) {
-        this.menuItemRepository = menuItemRepository;
+    public KioskScannerImpl(MenuRepository menuRepository) {
+        this.menuRepository = menuRepository;
     }
     @Override
     public void printSelectedMenuItem(String name, int index) throws Exception {
         try{
-            MenuItem menuItem = menuItemRepository.findMenuItemByIndex(name, index);
+            MenuItem menuItem = menuRepository.findMenuItemByIndex(name, index);
             System.out.println("선택한 메뉴: "+ menuItem.getItemName()+" | W "+menuItem.getPrice()+" | "+menuItem.getDescription());
             System.out.println();
         } catch (Exception e) {
@@ -27,11 +27,10 @@ public class ScannerServiceImpl implements ScannerService {
 
     @Override
     public void printMenu() {
-        List<Menu> menus = menuItemRepository.getAllMenus();
+        List<Menu> menus = menuRepository.getAllMenus();
         System.out.println("[ MAIN MENU ]");
-        AtomicInteger index = new AtomicInteger(1);
         menus.forEach(menu ->{
-            System.out.println(index.getAndIncrement()+" "+menu.getName());
+            System.out.println(menu.getNumber()+" "+menu.getName());
         });
     }
 
@@ -39,7 +38,7 @@ public class ScannerServiceImpl implements ScannerService {
     public void printMenuItems(String name) throws Exception {
         List<MenuItem> items;
         try{
-            items = menuItemRepository.findMenuItems(name);
+            items = menuRepository.findMenuItems(name);
         } catch (Exception e) {
             throw new Exception("해당 인덱스에 해당하는 이름이 없습니다!!");
         }
@@ -47,7 +46,7 @@ public class ScannerServiceImpl implements ScannerService {
 
         AtomicInteger index = new AtomicInteger(1);
         items.forEach(item -> {
-            String blank = blank_format(item.getItemName());
+            String blank = blankFormat(item.getItemName());
             System.out.println(index.getAndIncrement()+". "+item.getItemName()+blank+"|  W "+item.getPrice()+" |  "+ item.getDescription());
         });
     }
@@ -58,7 +57,7 @@ public class ScannerServiceImpl implements ScannerService {
      * @param name 상품 이름
      * @return 공백 문자열
      */
-    public String blank_format(String name) {
+    public String blankFormat(String name) {
         int lengthOfName = 20 - name.length();
         return " ".repeat(Math.max(0, lengthOfName));
     }

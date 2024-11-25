@@ -19,11 +19,5 @@ public interface KioskManager {
 
     /**
      */
-    public void process(String name, int number) throws Exception;
-
-    /**
-     * 내용 출력 후 마지막 동작 (뒤로가기, 종료) 메시지 출력
-     * @param action 뒤로가기 or 종료 등
-     */
-    void printLastSentence(String action);
+    public void printSelectedMenuItem(String name, int number) throws Exception;
 }

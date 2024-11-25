@@ -1,7 +1,7 @@
 package com.example.kiosk;
 
-import com.example.kiosk.repository.MenuItemMemoryRepository;
-import com.example.kiosk.repository.MenuItemRepository;
+import com.example.kiosk.repository.MenuMemoryRepository;
+import com.example.kiosk.repository.MenuRepository;
 import com.example.kiosk.service.*;
 
 //TIP 코드를 <b>실행</b>하려면 <shortcut actionId="Run"/>을(를) 누르거나
@@ -9,9 +9,9 @@ import com.example.kiosk.service.*;
 public class Main {
     public static void main(String[] args) {
         //객체 생성
-        MenuItemRepository menuItemRepository = new MenuItemMemoryRepository();
-        ScannerService scannerService = new ScannerServiceImpl(menuItemRepository);
-        KioskManager kioskManager = new KioskManagerImpl(scannerService,menuItemRepository);
+        MenuRepository menuRepository = new MenuMemoryRepository();
+        KioskScanner kioskScanner = new KioskScannerImpl(menuRepository);
+        KioskManager kioskManager = new KioskManagerImpl(kioskScanner, menuRepository);
         Kiosk kiosk = new Kiosk(kioskManager);
         kiosk.start();
     }
