@@ -1,5 +1,9 @@
 package com.example.kiosk;
 
+import com.example.kiosk.service.discountService.DiscountService;
+import com.example.kiosk.service.discountService.PercentageDiscountService;
+import com.example.kiosk.repository.CartMemoryRepository;
+import com.example.kiosk.repository.CartRepository;
 import com.example.kiosk.repository.MenuMemoryRepository;
 import com.example.kiosk.repository.MenuRepository;
 import com.example.kiosk.service.*;
@@ -10,9 +14,12 @@ public class Main {
     public static void main(String[] args) {
         //객체 생성
         MenuRepository menuRepository = new MenuMemoryRepository();
-        KioskScanner kioskScanner = new KioskScannerImpl(menuRepository);
-        KioskManager kioskManager = new KioskManagerImpl(kioskScanner, menuRepository);
-        Kiosk kiosk = new Kiosk(kioskManager);
+        CartRepository cartRepository = new CartMemoryRepository();
+        DiscountService discountService = new PercentageDiscountService();
+        KioskScanner kioskScanner = new KioskScannerImpl(menuRepository,cartRepository);
+        CartService cartService = new CartServiceImpl(cartRepository);
+        KioskInit kioskInit = new KioskInit(menuRepository);
+        Kiosk kiosk = new Kiosk(kioskScanner,cartService,kioskInit,discountService);
         kiosk.start();
     }
 }
