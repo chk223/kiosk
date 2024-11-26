@@ -1,28 +1,30 @@
 package com.example.kiosk.domain;
 
+import com.example.kiosk.service.Util.Format;
+
 public class CartItem {
-    private String name;
-    private String description;
-    private double price;
+    MenuItem menuItem;
     private int quantity;
 
-    public CartItem(String name, double price, String description) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
+    public CartItem(MenuItem menuItem) {
+        this.menuItem = menuItem;
         this.quantity = 1;
     }
 
-    public String getDescription() {
-        return description;
+    public MenuItem getMenuItem() {
+        return menuItem;
     }
 
     public String getName() {
-        return name;
+        return menuItem.getItemName();
     }
 
     public double getPrice() {
-        return price;
+        return menuItem.getPrice();
+    }
+
+    public String getDescription() {
+        return menuItem.getDescription();
     }
 
     public int getQuantity() {
@@ -35,5 +37,9 @@ public class CartItem {
 
     public void removeQuantity() {
         this.quantity -= 1;
+    }
+
+    public void displayCartItem() {
+        Format.displayMenuItem(menuItem.getItemName(),menuItem.getPrice(),menuItem.getDescription());
     }
 }

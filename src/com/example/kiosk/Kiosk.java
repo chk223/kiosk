@@ -1,94 +1,57 @@
 package com.example.kiosk;
-import com.example.kiosk.domain.CartItem;
-import com.example.kiosk.domain.Grade;
-import com.example.kiosk.domain.MenuItem;
-import com.example.kiosk.service.CartService;
-import com.example.kiosk.service.KioskInit;
-import com.example.kiosk.service.KioskManager;
-import com.example.kiosk.service.KioskScanner;
-import com.example.kiosk.service.discountService.DiscountService;
-
-import java.util.List;
-import java.util.Objects;
+import com.example.kiosk.service.*;
+import com.example.kiosk.service.Util.Format;
+import com.example.kiosk.service.Util.VerifyInput;
 
 /**
  * 프로그램 순서 및 흐름 제어 담당
  */
 public class Kiosk {
-    private final KioskScanner kioskScanner;
     private final CartService cartService;
     private final KioskInit kioskInit;
-    private final DiscountService discountService;
-    public Kiosk(KioskScanner kioskScanner, CartService cartService, KioskInit kioskInit, DiscountService discountService) {
-        this.kioskScanner = kioskScanner;
+    private final MenuManager menuManager;
+    public Kiosk(CartService cartService, KioskInit kioskInit, MenuManager menuManager) {
         this.cartService = cartService;
         this.kioskInit = kioskInit;
-        this.discountService = discountService;
+        this.menuManager = menuManager;
     }
+    private static final int MAX_ITERATIONS = 100000;
     public void start() {
-        int maximum_count = 1000000;
+        int remainIteration = MAX_ITERATIONS;
         kioskInit.init();
-        while(maximum_count>0) {
-            String menuName = "";
-            MenuItem menuItem = null;
-            int secondInput;
-            // 첫 번째 입력 -> 값 반환
-            try {
-                menuName = kioskScanner.selectMenu();
-                if(Objects.equals(menuName, "")) break;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                break;
-            }
-            if (!Objects.equals(menuName, "Order")) {//////////////
-                // 두 번째 입력
-                try {
-                    secondInput = kioskScanner.selectMenuItem(menuName);
-                    if(secondInput == 0) continue;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    break;
-                }
-                // 장바구니 담을지 여부
-                try {
-                    menuItem = kioskScanner.addItemToCart(menuName, secondInput);
-                    System.out.println("menuItem: " + menuItem.getItemName());
-                    if(menuItem != null) {
-                        cartService.addItemToCart(menuItem);
-                        System.out.println(menuItem.getItemName()+"이 장바구니에 추가되었습니다.");
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    maximum_count--;
-                }
-            }
-            else{//주문할건지
-                List<CartItem> cartItems = cartService.getCartItems();
-                double totalPrice = cartService.getTotalPrice();
-                kioskScanner.displayOrderList(cartItems,totalPrice);
-                int input = 0;
-                try {
-                    input = kioskScanner.processOrder();
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    break;
-                }
-                if(input ==1) {
-                    try {
-                        Grade grade = kioskScanner.getDiscountInfo(discountService.getDiscountAmount(), discountService.getDiscountMark(), totalPrice);
-                        double discountPrice = discountService.discount(grade, totalPrice);
-                        System.out.println("주문이 완료되었습니다. 금액은 W "+discountPrice+" 입니다.");
-                        cartService.clearCart();
-                        break;
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        break;
-                    }
-                }
-            }
-
-
+        while(remainIteration>0) {
+            displayMenus();
+            int totalMenuCount = countTotalMenu();
+            int input = VerifyInput.verify(0, totalMenuCount); // 검증 값인데 반환값이?
+            if(input == 0) break;
+            processMenuService(input, totalMenuCount);
+            remainIteration--;
         }
+    }
+
+    private void processMenuService(int input, int totalMenuCount) {
+        if (input <= menuManager.getMenuCount()) { //메뉴 선택
+            menuManager.displayMenuItem(input);
+            //메뉴 서비스 로직
+        }
+        else if(input <= totalMenuCount) {
+            cartService.processOrder(input);
+        }
+    }
+
+    private void displayMenus() {
+        menuManager.displayMenus();
+        if(!cartService.isCartsEmpty()) {// 장바구니에 있으면.
+            Format.displayOrderMenu(menuManager.getMenuCount());
+        }
+    }
+
+    private int countTotalMenu() {
+        int totalMenuCount =  menuManager.getMenuCount();
+        if(!cartService.isCartsEmpty()) {// 장바구니에 있으면.
+            totalMenuCount +=2;//장바구니 있으면 메뉴 개수 증가
+        }
+        return totalMenuCount;
     }
 
 }

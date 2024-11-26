@@ -1,5 +1,7 @@
 package com.example.kiosk.domain;
 
+import java.util.List;
+
 public enum Grade {
     SOLDIER("군인", 0.5,0.1,2),
     STUDENT("학생",0.2,0.03,4),

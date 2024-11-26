@@ -15,11 +15,11 @@ public class Main {
         //객체 생성
         MenuRepository menuRepository = new MenuMemoryRepository();
         CartRepository cartRepository = new CartMemoryRepository();
-        DiscountService discountService = new PercentageDiscountService();
-        KioskScanner kioskScanner = new KioskScannerImpl(menuRepository,cartRepository);
-        CartService cartService = new CartServiceImpl(cartRepository);
+        DiscountService discountService = new PercentageDiscountService(cartRepository);
+        CartService cartService = new CartServiceImpl(cartRepository,menuRepository,discountService);
         KioskInit kioskInit = new KioskInit(menuRepository);
-        Kiosk kiosk = new Kiosk(kioskScanner,cartService,kioskInit,discountService);
+        MenuManager menuManager = new MenuManager(menuRepository,cartRepository);
+        Kiosk kiosk = new Kiosk(cartService,kioskInit,menuManager);
         kiosk.start();
     }
 }

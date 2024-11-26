@@ -14,4 +14,7 @@ public interface MenuRepository {
     MenuItem findMenuItemByIndex(String name, int index);
     void saveItem(Menu menu, MenuItem menuItem);
     void removeItem(Menu menu, MenuItem menuItem);
+    MenuItem getSpecificMenuItem(int menuIndex, int menuItemIndex);
+    int countMenus();
+    int countMenuItems(int menuIndex);
 }

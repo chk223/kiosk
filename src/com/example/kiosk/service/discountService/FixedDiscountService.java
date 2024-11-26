@@ -1,37 +1,37 @@
 package com.example.kiosk.service.discountService;
 
 import com.example.kiosk.domain.Grade;
+import com.example.kiosk.service.Util.Format;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+
 
 public class FixedDiscountService implements DiscountService {
 
     @Override
-    public double discount(Grade grade, double price) {
-        double discountPrice = 0;
-        switch (grade) {
-            case BASIC -> discountPrice = price - Grade.BASIC.getFixedDiscount();
-            case STUDENT -> discountPrice = price - Grade.STUDENT.getFixedDiscount();
-            case KID -> discountPrice = price - Grade.KID.getFixedDiscount();
-            case SOLDIER -> discountPrice = price - Grade.SOLDIER.getFixedDiscount();
-            case SPECIAL -> discountPrice = price - Grade.SPECIAL.getFixedDiscount();
-        }
-        return discountPrice;
-    }
-    @Override
-    public Map<Grade, Double> getDiscountAmount() {
-        Map<Grade, Double> discountAmount = new HashMap<>();
-        discountAmount.put(Grade.SPECIAL,Grade.SPECIAL.getFixedDiscount());
-        discountAmount.put(Grade.SOLDIER,Grade.SOLDIER.getFixedDiscount());
-        discountAmount.put(Grade.KID,Grade.KID.getFixedDiscount());
-        discountAmount.put(Grade.STUDENT,Grade.STUDENT.getFixedDiscount());
-        discountAmount.put(Grade.BASIC,Grade.BASIC.getFixedDiscount());
-        return discountAmount;
+    public double calculateDiscountPrice(Grade grade, double price) {
+        double discountAmount = grade.getFixedDiscount();
+        double discountPrice = price -discountAmount;
+        return Format.changeRoundDoubleFormat(discountPrice);
     }
 
     @Override
-    public String getDiscountMark() {
+    public void displayDiscountInfo() {
+        System.out.println("할인 정보를 입력하세요.");
+        System.out.println("[ 할인 등급 정보 ]");
+        for (Grade grade : Grade.values()) {
+            System.out.println(grade.getNumber()+grade.getDescription()+": "+grade.getFixedDiscount()+getDiscountMark());
+        }
+    }
+    private String getDiscountMark() {
         return "W";
+    }
+
+    @Override
+    public Grade getGradeByIndex(int index) {
+        return Arrays.stream(Grade.values())
+                .filter(grade -> grade.getNumber() == index)
+                .findFirst()
+                .orElse(null);
     }
 }

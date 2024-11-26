@@ -1,37 +1,37 @@
 package com.example.kiosk.service.discountService;
 
 import com.example.kiosk.domain.Grade;
+import com.example.kiosk.service.Util.Format;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class PercentageDiscountService implements DiscountService {
+
     @Override
-    public double discount(Grade grade, double price) {
-        double discountPrice = 0;
-        switch (grade) {
-            case BASIC -> discountPrice = price * (1.0 - Grade.BASIC.getPercentageDiscount());
-            case STUDENT -> discountPrice = price * (1.0 - Grade.STUDENT.getPercentageDiscount());
-            case KID -> discountPrice = price * (1.0 - Grade.KID.getPercentageDiscount());
-            case SOLDIER -> discountPrice = price * (1.0 - Grade.SOLDIER.getPercentageDiscount());
-            case SPECIAL -> discountPrice = price * (1.0 - Grade.SPECIAL.getPercentageDiscount());
+    public double calculateDiscountPrice(Grade grade, double price) {
+        double discountAmount = grade.getPercentageDiscount();
+        double discountPrice = price * (1.0-discountAmount);
+        return Format.changeRoundDoubleFormat(discountPrice);
+    }
+
+    @Override
+    public void displayDiscountInfo() {
+        System.out.println("할인 정보를 입력하세요.");
+        System.out.println("[ 할인 등급 정보 ]");
+        for (Grade grade : Grade.values()) {
+            System.out.println(grade.getNumber()+grade.getDescription()+": "+grade.getPercentageDiscount()*100+getDiscountMark());
         }
-        return discountPrice;
     }
-
-    @Override
-    public Map<Grade, Double> getDiscountAmount() {
-        Map<Grade, Double> discountAmount = new HashMap<>();
-        discountAmount.put(Grade.SPECIAL,Grade.SPECIAL.getPercentageDiscount()*100);
-        discountAmount.put(Grade.SOLDIER,Grade.SOLDIER.getPercentageDiscount()*100);
-        discountAmount.put(Grade.KID,Grade.KID.getPercentageDiscount()*100);
-        discountAmount.put(Grade.STUDENT,Grade.STUDENT.getPercentageDiscount()*100);
-        discountAmount.put(Grade.BASIC,Grade.BASIC.getPercentageDiscount()*100);
-        return discountAmount;
-    }
-
-    @Override
-    public String getDiscountMark() {
+    private String getDiscountMark() {
         return "%";
+    }
+
+    @Override
+    public Grade getGradeByIndex(int index) {
+        return Arrays.stream(Grade.values())
+                .filter(grade -> grade.getNumber() == index)
+                .findFirst()
+                .orElse(null);
+
     }
 }

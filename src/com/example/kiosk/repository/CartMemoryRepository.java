@@ -1,63 +1,50 @@
 package com.example.kiosk.repository;
 
 import com.example.kiosk.domain.CartItem;
+import com.example.kiosk.domain.MenuItem;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CartMemoryRepository implements CartRepository{
 
-    private static final Map<String, CartItem> cartStorage = new HashMap<>();
+    private static final Map<String, CartItem> cartStorage = new ConcurrentHashMap<>();
 
     @Override
-    public void add(CartItem cartItem) {
-        if(cartStorage.containsKey(cartItem.getName())) {
-            CartItem targetItem = cartStorage.get(cartItem.getName());
-            targetItem.addQuantity();
-            cartStorage.put(targetItem.getName(), targetItem);
-        }
-        else{
-            cartStorage.put(cartItem.getName(), cartItem);
+    public void add(MenuItem menuItem) {
+        CartItem cartItem = cartStorage.get(menuItem.getItemName());
+        if (cartItem != null) {
+            cartItem.addQuantity(); // 기존 항목의 수량 증가
+        } else {
+            cartStorage.put(menuItem.getItemName(), new CartItem(menuItem)); // 새 항목 추가
         }
     }
 
     @Override
     public void remove(String name) throws Exception {
-        if(cartStorage.containsKey(name)) {
-            CartItem cartItem = cartStorage.get(name);
-            if(cartItem.getQuantity() > 1) {
-                cartItem.removeQuantity();
-                cartStorage.put(cartItem.getName(), cartItem);
-            }
-            else {
-                cartStorage.remove(name);
-            }
+        CartItem cartItem = cartStorage.get(name);
+        if (cartItem == null) {
+            throw new Exception("장바구니에 '" + name + "' 이 없음");
         }
-        else {
-            throw new Exception("장바구니에 해당 이름의 메뉴가 없음!");
+        if (cartItem.getQuantity() > 1) {
+            cartItem.removeQuantity(); // 수량 감소
+        } else {
+            cartStorage.remove(name); // 항목 제거
         }
     }
 
     @Override
     public void removeAll() {
-        for(CartItem cartItem : cartStorage.values()) {
-            cartStorage.remove(cartItem.getName());
-        }
+        cartStorage.clear();
     }
 
     @Override
     public List<CartItem> getCartItems() {
-        return cartStorage.values().stream().toList();
+        return new ArrayList<>(cartStorage.values());
     }
 
     @Override
-    public double getPrice() {
-        double totalPrice = 0;
-        for(CartItem cartItem: cartStorage.values()) {
-            totalPrice += cartItem.getPrice();
-        }
-        return totalPrice;
+    public double getTotalPrice() {
+        return cartStorage.values().stream().mapToDouble(CartItem::getPrice).sum();
     }
 }

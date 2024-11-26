@@ -7,9 +7,8 @@ import com.example.kiosk.domain.MenuItem;
 import java.util.List;
 
 public interface CartService {
-    void addItemToCart(MenuItem menuItem);
-    void subItemToCart(MenuItem menuItem) throws Exception;
-    List<CartItem> getCartItems();
-    double getTotalPrice();
-    void clearCart();
+    void processOrder(int input);
+    void addItemToCart(int menuIndex, int menuItemIndex);
+    void removeItemToCart(MenuItem menuItem) throws Exception;
+    Boolean isCartsEmpty();
 }
