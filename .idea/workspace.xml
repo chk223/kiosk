@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="45c4d9bf-e630-49f5-b00d-810525a8227f" name="변경" comment="feat: 커스텀 예외 추가 및 veryfyInput 주석 수정 및 코드개선">
+      <change beforePath="$PROJECT_DIR$/src/com/example/kiosk/service/MenuManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/example/kiosk/service/MenuManager.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Exception" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;chk223&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/chk223/kiosk.git&quot;,
+    &quot;accountId&quot;: &quot;af579049-c93d-478d-b344-016b3e385979&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2pBZC8KMVkxsGH0UajIGpArHZHy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/KCH/Desktop/coding/sparta/practice/Kioskproject/src/Main.java&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;애플리케이션.Kiosk.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.키오스크.executor&quot;: &quot;Run&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="키오스크" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.example.kiosk.Main" />
+      <module name="Kioskproject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="45c4d9bf-e630-49f5-b00d-810525a8227f" name="변경" comment="" />
+      <created>1732241299369</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732241299369</updated>
+      <workItem from="1732241300411" duration="3153000" />
+      <workItem from="1732244504607" duration="17695000" />
+      <workItem from="1732263400410" duration="18703000" />
+      <workItem from="1732286989198" duration="2075000" />
+      <workItem from="1732370935836" duration="8600000" />
+      <workItem from="1732461679406" duration="4362000" />
+      <workItem from="1732466511516" duration="86000" />
+      <workItem from="1732466600882" duration="443000" />
+      <workItem from="1732467050296" duration="1317000" />
+      <workItem from="1732493549684" duration="39213000" />
+      <workItem from="1732567423177" duration="40474000" />
+      <workItem from="1732664443093" duration="20025000" />
+      <workItem from="1732687006498" duration="2000" />
+      <workItem from="1732692584742" duration="5687000" />
+    </task>
+    <task id="LOCAL-00001" summary="style: 코드 구조 수정">
+      <option name="closed" value="true" />
+      <created>1732500101538</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732500101538</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: 삭제 로직 오류 수정 및 cartItem 출력 포맷 변경">
+      <option name="closed" value="true" />
+      <created>1732683645201</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732683645201</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: 커스텀 예외 추가 및 veryfyInput 주석 수정 및 코드개선">
+      <option name="closed" value="true" />
+      <created>1732685723572</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732685723572</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="style: 코드 구조 수정" />
+    <MESSAGE value="fix: 삭제 로직 오류 수정 및 cartItem 출력 포맷 변경" />
+    <MESSAGE value="feat: 커스텀 예외 추가 및 veryfyInput 주석 수정 및 코드개선" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 커스텀 예외 추가 및 veryfyInput 주석 수정 및 코드개선" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
