@@ -45,6 +45,10 @@ public class Format {
         System.out.println(name+" | W "+price+" | "+description);
     }
 
+    public static void displayCartItem(int number, String name, double price, String description, int quantity) {
+        System.out.println(number+". "+name+" | W "+price+" | "+description+" | 수량: "+quantity+"개 | 합계: "+price*quantity+" W");
+    }
+
     /**
      * 2 개중 한개를 선택하는 옵션 선택 포맷
      * @param firstOption 첫 번째 옵션 이름

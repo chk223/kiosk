@@ -46,6 +46,6 @@ public class CartItem {
     }
 
     public void displayCartItem() {
-        Format.displayMenuItem(menuItem.getItemName(),menuItem.getPrice(),menuItem.getDescription());
+        Format.displayCartItem(number,menuItem.getItemName(),menuItem.getPrice(),menuItem.getDescription(),quantity);
     }
 }

@@ -61,7 +61,7 @@ public class MenuManager {
     public void serviceShopping(int menuIndex) {
         Menu menu = getMenuByIndex(menuIndex);
         menu.displayMenuItems();
-        int menuItemIndex = VerifyInput.validateAndReturnInput(0,menuRepository.countMenuItems(menuIndex));
+        int menuItemIndex = VerifyInput.validateRangeAndReturnInput(0,menuRepository.countMenuItems(menuIndex));
         if(menuItemIndex != 0) {
             processMenuItemSelection(menu,menuItemIndex);
         }
@@ -79,7 +79,7 @@ public class MenuManager {
         System.out.println();
         System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
         Format.displaySelectOneOfTheTwoOptions("확인", "취소");
-        int verified = VerifyInput.validateAndReturnInput(Format.confirm, Format.cancel);
+        int verified = VerifyInput.validateRangeAndReturnInput(Format.confirm, Format.cancel);
         if (verified == 1) {
             cartRepository.add(menuItem);
             System.out.println("\n" + menuItem.getItemName() + " 이 장바구니에 추가되었습니다.");

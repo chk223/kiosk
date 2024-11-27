@@ -46,7 +46,7 @@ public class CartMemoryRepository implements CartRepository{
 
     @Override
     public double getTotalPrice() {
-        return cartStorage.values().stream().mapToDouble(CartItem::getPrice).sum();
+        return cartStorage.values().stream().mapToDouble(cartItem -> cartItem.getPrice() * cartItem.getQuantity()).sum();
     }
 
     @Override
@@ -55,5 +55,12 @@ public class CartMemoryRepository implements CartRepository{
                 findFirst().orElseThrow(() -> new NoSuchElementException("해당 인덱스의 상품이 없음."));
         return item.getName();
     }
-
+    @Override
+    public List<Integer> getCartItemNumbers() {
+        List<Integer> cartItemNumberList = new ArrayList<>();
+        cartStorage.values().stream().forEach(cartItem -> {
+            cartItemNumberList.add(cartItem.getNumber());
+        });
+        return cartItemNumberList;
+    }
 }

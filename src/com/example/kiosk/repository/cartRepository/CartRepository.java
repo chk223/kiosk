@@ -40,4 +40,10 @@ public interface CartRepository {
      * @return 상품 이름
      */
     String getCartItemNameByIndex(int index);
+
+    /**
+     * 장바구니에 담긴 상품의 고유 번호들을 담은 리스트 반환
+     * @return 장바구니에 담긴 상품의 고유 번호들을 담은 리스트
+     */
+    List<Integer> getCartItemNumbers();
 }

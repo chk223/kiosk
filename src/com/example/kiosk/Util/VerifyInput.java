@@ -1,5 +1,7 @@
 package com.example.kiosk.Util;
 
+import java.util.List;
+
 public class VerifyInput {
     /**
      * 해당 범위에 있는지 검증
@@ -18,7 +20,7 @@ public class VerifyInput {
      * @param max 최대값
      * @return 검증이 완료 된 입력 값 반환(입력 횟수 초과 시 0 반환)
      */
-    public static int validateAndReturnInput(int min, int max) {
+    public static int validateRangeAndReturnInput(int min, int max) {
         int maximumCount = 100;
         do{
             try {
@@ -28,13 +30,41 @@ public class VerifyInput {
                 if(verify) {
                     return input;
                 }
+                else System.out.println(min+"이상 "+max+" 이하의 정수를 입력해주세요.");
             } catch (Exception e) {
                 maximumCount--;
                 System.out.println(min+"이상 "+max+" 이하의 정수를 입력해주세요.");
-                e.printStackTrace();
             }
         } while(maximumCount >0);
         System.out.println("입력 횟수가 초과되었습니다.");
         return 0;
+    }
+
+    /**
+     * 입력 값이 숫자 리스트의 값 안에 있는지 검증 후 반환
+     * @param numberList 숫자 리스트
+     * @return 참(입력 값이 숫자 리스트에 있음) 거짓 (입력 값이 숫자 리스트에 없음)
+     */
+    public static int validateNumberInList(List<Integer> numberList) {
+        int maximumCount = 100;
+        do{
+            try {
+                System.out.print("입력: ");
+                int input = Input.input();
+                Boolean verify = verifyContain(input,  numberList);
+                if(verify) {
+                    return input;
+                }
+                else System.out.println("화면에 표기 된 값을 입력해주세요.");
+            } catch (Exception e) {
+                maximumCount--;
+                System.out.println("화면에 표기 된 값을 입력해주세요.");
+            }
+        } while(maximumCount >0);
+        System.out.println("입력 횟수가 초과되었습니다.");
+        return 0;
+    }
+    private static Boolean verifyContain(int input, List<Integer> numberList) {
+        return !numberList.stream().filter(n -> n == input).findFirst().isEmpty();
     }
 }

@@ -23,7 +23,7 @@ public class Kiosk {
         while(remainIteration>0) {
             displayMenus();
             int menuRange = decideMenuRange();
-            int input = VerifyInput.validateAndReturnInput(0, menuRange);
+            int input = VerifyInput.validateRangeAndReturnInput(0, menuRange);
             if(input == 0) break;
             processMenuService(input, menuRange);
             remainIteration--;
