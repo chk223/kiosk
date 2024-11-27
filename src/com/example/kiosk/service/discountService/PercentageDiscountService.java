@@ -1,7 +1,7 @@
 package com.example.kiosk.service.discountService;
 
 import com.example.kiosk.domain.Grade;
-import com.example.kiosk.service.Util.Format;
+import com.example.kiosk.Util.Format;
 
 import java.util.Arrays;
 import java.util.Comparator;

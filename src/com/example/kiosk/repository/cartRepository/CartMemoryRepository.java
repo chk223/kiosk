@@ -1,4 +1,4 @@
-package com.example.kiosk.repository;
+package com.example.kiosk.repository.cartRepository;
 
 import com.example.kiosk.domain.CartItem;
 import com.example.kiosk.domain.MenuItem;
@@ -37,7 +37,6 @@ public class CartMemoryRepository implements CartRepository{
     @Override
     public void removeAll() {
         cartStorage.clear();
-        cartstorageNumber=0;
     }
 
     @Override

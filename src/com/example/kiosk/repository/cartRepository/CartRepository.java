@@ -1,4 +1,4 @@
-package com.example.kiosk.repository;
+package com.example.kiosk.repository.cartRepository;
 
 import com.example.kiosk.domain.CartItem;
 import com.example.kiosk.domain.MenuItem;
@@ -33,5 +33,11 @@ public interface CartRepository {
      * 현재 장바구니에 있는 상품들의 총액 반환
      */
     double getTotalPrice();
+
+    /**
+     * 장바구니에 담긴 상품의 고유 번호를 통해 상품 이름 반환
+     * @param index 장바구니에 담긴 상품의 고유 번호
+     * @return 상품 이름
+     */
     String getCartItemNameByIndex(int index);
 }

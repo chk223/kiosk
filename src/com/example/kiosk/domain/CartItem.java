@@ -1,6 +1,6 @@
 package com.example.kiosk.domain;
 
-import com.example.kiosk.service.Util.Format;
+import com.example.kiosk.Util.Format;
 
 public class CartItem {
     MenuItem menuItem;

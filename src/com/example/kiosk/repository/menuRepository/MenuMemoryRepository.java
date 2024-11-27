@@ -1,4 +1,4 @@
-package com.example.kiosk.repository;
+package com.example.kiosk.repository.menuRepository;
 
 import com.example.kiosk.domain.Menu;
 import com.example.kiosk.domain.MenuItem;
@@ -28,26 +28,6 @@ public class MenuMemoryRepository implements MenuRepository {
     @Override
     public List<Menu> getAllMenus() {
         return new ArrayList<>(menuStorage.values());
-    }
-
-    @Override
-    public List<MenuItem> findMenuItems(String name) {
-        return menuStorage.get(name).getMenuItems();
-    }
-
-    @Override
-    public String getMenuNameByIndex(int index) {
-        for (Menu menu : menuStorage.values()) {
-            if(menu.getNumber() == index) {
-                return menu.getName();
-            }
-        }
-        return "";
-    }
-
-    @Override
-    public MenuItem findMenuItemByIndex(String name, int index) {
-        return menuStorage.get(name).getMenuItemByIndex(index);
     }
 
     @Override

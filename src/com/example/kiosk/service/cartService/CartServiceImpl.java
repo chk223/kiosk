@@ -1,11 +1,10 @@
-package com.example.kiosk.service;
+package com.example.kiosk.service.cartService;
 
 import com.example.kiosk.domain.Grade;
-import com.example.kiosk.repository.MenuRepository;
-import com.example.kiosk.service.Util.Format;
-import com.example.kiosk.service.Util.VerifyInput;
-import com.example.kiosk.domain.MenuItem;
-import com.example.kiosk.repository.CartRepository;
+import com.example.kiosk.repository.menuRepository.MenuRepository;
+import com.example.kiosk.Util.Format;
+import com.example.kiosk.Util.VerifyInput;
+import com.example.kiosk.repository.cartRepository.CartRepository;
 import com.example.kiosk.service.discountService.DiscountService;
 
 public class CartServiceImpl implements CartService {
@@ -75,14 +74,6 @@ public class CartServiceImpl implements CartService {
             double discountPrice = discountService.calculateDiscountPrice(selectedGrade, totalPrice);
             System.out.println("주문이 완료되었습니다. 금액은 W " + discountPrice + " 입니다.");
         }
-    }
-
-
-    @Override
-    public void addItemToCart(int menuIndex, int menuItemIndex) {
-        MenuItem menuItem = menuRepository.getSpecificMenuItem(menuIndex, menuItemIndex);
-        cartRepository.add(menuItem);
-        System.out.println(menuItem.getItemName() + " 이 장바구니에 추가되었습니다.");
     }
 
     @Override

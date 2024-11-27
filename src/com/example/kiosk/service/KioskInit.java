@@ -2,10 +2,14 @@ package com.example.kiosk.service;
 
 import com.example.kiosk.domain.Menu;
 import com.example.kiosk.domain.MenuItem;
-import com.example.kiosk.repository.MenuRepository;
+import com.example.kiosk.repository.menuRepository.MenuRepository;
 
 import java.util.Arrays;
 
+/**
+ * 키오스크 초기화.
+ * 초기 메뉴 및 상품 구성
+ */
 public class KioskInit {
     private final MenuRepository menuRepository;
 
@@ -55,10 +59,5 @@ public class KioskInit {
                 System.out.println(e.getMessage());
             }
         });
-    }
-
-    public void removeMenuItem(String menuName, String itemName) {
-        Menu menu = menuRepository.findMenu(menuName);
-        menuRepository.removeItem(menu,itemName);
     }
 }
