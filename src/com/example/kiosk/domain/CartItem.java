@@ -4,11 +4,17 @@ import com.example.kiosk.service.Util.Format;
 
 public class CartItem {
     MenuItem menuItem;
+    private int number;
     private int quantity;
 
-    public CartItem(MenuItem menuItem) {
+    public CartItem(MenuItem menuItem, int number) {
         this.menuItem = menuItem;
+        this.number = number;
         this.quantity = 1;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     public MenuItem getMenuItem() {

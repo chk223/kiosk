@@ -15,7 +15,7 @@ public class Main {
         //객체 생성
         MenuRepository menuRepository = new MenuMemoryRepository();
         CartRepository cartRepository = new CartMemoryRepository();
-        DiscountService discountService = new PercentageDiscountService(cartRepository);
+        DiscountService discountService = new PercentageDiscountService();
         CartService cartService = new CartServiceImpl(cartRepository,menuRepository,discountService);
         KioskInit kioskInit = new KioskInit(menuRepository);
         MenuManager menuManager = new MenuManager(menuRepository,cartRepository);

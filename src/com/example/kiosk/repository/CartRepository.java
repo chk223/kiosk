@@ -33,4 +33,5 @@ public interface CartRepository {
      * 현재 장바구니에 있는 상품들의 총액 반환
      */
     double getTotalPrice();
+    String getCartItemNameByIndex(int index);
 }

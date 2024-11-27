@@ -4,6 +4,7 @@ import com.example.kiosk.domain.Grade;
 import com.example.kiosk.service.Util.Format;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class PercentageDiscountService implements DiscountService {
 
@@ -18,9 +19,8 @@ public class PercentageDiscountService implements DiscountService {
     public void displayDiscountInfo() {
         System.out.println("할인 정보를 입력하세요.");
         System.out.println("[ 할인 등급 정보 ]");
-        for (Grade grade : Grade.values()) {
-            System.out.println(grade.getNumber()+grade.getDescription()+": "+grade.getPercentageDiscount()*100+getDiscountMark());
-        }
+        Arrays.stream(Grade.values()).sorted(Comparator.comparingInt(Grade::getNumber))
+                .forEach(grade -> System.out.println(grade.getNumber()+". "+grade.getDescription()+": "+grade.getPercentageDiscount()*100+getDiscountMark()));
     }
     private String getDiscountMark() {
         return "%";

@@ -57,8 +57,8 @@ public class MenuMemoryRepository implements MenuRepository {
     }
 
     @Override
-    public void removeItem(Menu menu, MenuItem menuItem) {
-        menu.removeMenuItem(menuItem);
+    public void removeItem(Menu menu, String itemName) {
+        menu.removeMenuItem(itemName);
         menuStorage.put(menu.getName(), menu);
     }
     @Override
@@ -80,11 +80,6 @@ public class MenuMemoryRepository implements MenuRepository {
         }
         return menuStorage.get(name);
     }
-    public void displaySpecificMenuItem(int menuIndex, int menuItemIndex) {
-        Menu menu = getMenuByIndex(menuIndex);
-        menu.displaySpecificMenuItem(menuItemIndex);
-    }
-
     @Override
     public MenuItem getSpecificMenuItem(int menuIndex, int menuItemIndex) {
         Menu menu = getMenuByIndex(menuIndex);

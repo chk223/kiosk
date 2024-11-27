@@ -21,21 +21,22 @@ public class Kiosk {
         kioskInit.init();
         while(remainIteration>0) {
             displayMenus();
-            int totalMenuCount = countTotalMenu();
-            int input = VerifyInput.verify(0, totalMenuCount); // 검증 값인데 반환값이?
+            int extendedMenuRange = countTotalMenu();
+            int input = VerifyInput.validateAndReturnInput(0, extendedMenuRange);
             if(input == 0) break;
-            processMenuService(input, totalMenuCount);
+            processMenuService(input, extendedMenuRange);
             remainIteration--;
         }
     }
 
-    private void processMenuService(int input, int totalMenuCount) {
-        if (input <= menuManager.getMenuCount()) { //메뉴 선택
-            menuManager.displayMenuItem(input);
+    private void processMenuService(int menuNumber, int extendedMenuRange) {
+        int originalMenuRange = menuManager.getMenuCount();
+        if (menuNumber <= originalMenuRange) { //메뉴 선택
+            menuManager.displayMenuItem(menuNumber);
             //메뉴 서비스 로직
         }
-        else if(input <= totalMenuCount) {
-            cartService.processOrder(input);
+        else if(menuNumber <= extendedMenuRange) {
+            cartService.processOrder(menuNumber);
         }
     }
 

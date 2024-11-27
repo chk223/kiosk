@@ -4,12 +4,9 @@ import com.example.kiosk.domain.Grade;
 import com.example.kiosk.repository.MenuRepository;
 import com.example.kiosk.service.Util.Format;
 import com.example.kiosk.service.Util.VerifyInput;
-import com.example.kiosk.domain.CartItem;
 import com.example.kiosk.domain.MenuItem;
 import com.example.kiosk.repository.CartRepository;
 import com.example.kiosk.service.discountService.DiscountService;
-
-import java.util.Collection;
 
 public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
@@ -28,13 +25,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void processOrder(int input) {
-        int countMenus = menuRepository.countMenus();
-        int processIndex = countMenus + 1;
-        int cancelIndex = countMenus + 2;
-        if (input == processIndex) {//주문 진행
+    public void processOrder(int chosenMenuNumber) {
+        int menuRange = menuRepository.countMenus();
+        int processIndex = menuRange + 1;
+        int cancelIndex = menuRange + 2;
+        if (chosenMenuNumber == processIndex) {//주문 진행(OrderList)
             checkOrderOption();
-        } else if (input == cancelIndex) { // 주문 취소
+        } else if (chosenMenuNumber == cancelIndex) { // 주문 취소
             cancelOrder();
         }
     }
@@ -45,15 +42,33 @@ public class CartServiceImpl implements CartService {
 
     private void checkOrderOption() {
         displayConfirmOrder();
-        if (confirmOrder()) { //주문 요청 시
+        int chosenOrderOptions = chooseOrderOptions();
+        if (chosenOrderOptions ==1) { //주문 요청 시
             processDiscount();
             cancelOrder();
         }
+        else if(chosenOrderOptions ==3) { //주문 상품 삭제
+            int cartItemRange = cartRepository.getCartItems().size();
+            System.out.println("장바구니에서 삭제 할 상품의 번호를 선택하세요.");
+            int targetIndex = VerifyInput.validateAndReturnInput(0, cartItemRange);
+            if(targetIndex == 0) {
+                return;
+            } else{
+                String removeTargetName = cartRepository.getCartItemNameByIndex(targetIndex);
+                try {
+                    System.out.println(removeTargetName+" 이 삭제되었습니다.");
+                    removeItemToCart(removeTargetName);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
     }
+
 
     private void processDiscount() {
         discountService.displayDiscountInfo();
-        int gradeIndex = VerifyInput.verify(1, Grade.values().length);
+        int gradeIndex = VerifyInput.validateAndReturnInput(1, Grade.values().length);
         Grade selectedGrade = discountService.getGradeByIndex(gradeIndex);
         if (selectedGrade != null) {
             double totalPrice = cartRepository.getTotalPrice();
@@ -71,8 +86,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeItemToCart(MenuItem menuItem) throws Exception {
-        cartRepository.remove(menuItem.getItemName());
+    public void removeItemToCart(String itemName) throws Exception {
+        cartRepository.remove(itemName);
     }
 
 
@@ -80,9 +95,8 @@ public class CartServiceImpl implements CartService {
         cartRepository.removeAll();
     }
 
-    public Boolean confirmOrder() {
-        int verified = VerifyInput.verify(Format.confirm, Format.cancel);
-        return verified == Format.confirm;//1 -> 주문 선택 2-> 메뉴판 선택
+    public int chooseOrderOptions() {
+        return VerifyInput.validateAndReturnInput(Format.confirm, Format.delete);//1 -> 주문 선택 2-> 메뉴판 선택 3-> 상품 주문 취소
     }
 
     private void displayConfirmOrder() {
@@ -94,13 +108,13 @@ public class CartServiceImpl implements CartService {
         System.out.println("[ Total ]");
         System.out.println("W " + cartRepository.getTotalPrice());
         System.out.println();
-        Format.displaySelectOption("주문", "메뉴판");
+        Format.displaySelectOneOfTheThreeOptions("주문", "메뉴판","상품 삭제");
     }
 
     public void displayCartItems() {
-        Collection<CartItem> cartItems = cartRepository.getCartItems();
-        for (CartItem cartItem : cartItems) {
+        cartRepository.getCartItems().forEach(cartItem -> {
+            System.out.print(cartItem.getNumber() +". ");
             cartItem.displayCartItem();
-        }
+    });
     }
 }

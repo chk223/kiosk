@@ -57,8 +57,8 @@ public class KioskInit {
         });
     }
 
-    public void removeMenuItem(String name, MenuItem menuItem) {
-        Menu menu = menuRepository.findMenu(name);
-        menuRepository.removeItem(menu,menuItem);
+    public void removeMenuItem(String menuName, String itemName) {
+        Menu menu = menuRepository.findMenu(menuName);
+        menuRepository.removeItem(menu,itemName);
     }
 }

@@ -4,6 +4,7 @@ import com.example.kiosk.service.Util.Format;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
@@ -43,11 +44,13 @@ public class Menu {
     public void addMenuItem(MenuItem item) {
         menuItems.add(item);
     }
-    public void removeMenuItem(MenuItem item) {
-        menuItems.remove(item);
+    public void removeMenuItem(String itemName) {
+        menuItems.removeIf(menuItem -> menuItem.getItemName().equals(itemName));
     }
     public MenuItem getMenuItemByIndex(int index) {
-        return menuItems.get(index-1);
+        return IntStream.range(0,menuItems.size()).filter(idx -> idx== index-1)
+                .mapToObj(menuItems::get).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("입력된 인덱스에 해당하는 상품이 없음"));
     }
 
     public void displayMenuItems() {
@@ -63,7 +66,7 @@ public class Menu {
         return menuItems.size();
     }
     public void displaySpecificMenuItem(int menuItemIndex) {
-        MenuItem menuItem = menuItems.get(menuItemIndex - 1);
+        MenuItem menuItem = getMenuItemByIndex(menuItemIndex);
         Format.displayMenuItem(menuItem.getItemName(),menuItem.getPrice(),menuItem.getDescription());
     }
 }

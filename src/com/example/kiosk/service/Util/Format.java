@@ -4,6 +4,7 @@ public class Format {
 
     public static int confirm = 1;
     public static int cancel = 2;
+    public static int delete = 3;
 
     /**
      * 상품과 가격의 경계선을 일정하게 그어 주기 위한 공백설정
@@ -31,8 +32,12 @@ public class Format {
         System.out.println(name+" | W "+price+" | "+description);
     }
 
-    public static void displaySelectOption(String firstOption, String secondOption){
+    public static void displaySelectOneOfTheTwoOptions(String firstOption, String secondOption){
         System.out.println("1. "+firstOption+ blankFormat("")+"2. "+secondOption);
+    }
+
+    public static void displaySelectOneOfTheThreeOptions(String firstOption, String secondOption, String thirdOption){
+        System.out.println("1. "+firstOption+ blankFormat("")+"2. "+secondOption+ blankFormat("")+"3. "+thirdOption);
     }
 
     public static double changeRoundDoubleFormat(double doubleFormat) {

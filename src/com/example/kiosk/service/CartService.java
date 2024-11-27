@@ -9,6 +9,6 @@ import java.util.List;
 public interface CartService {
     void processOrder(int input);
     void addItemToCart(int menuIndex, int menuItemIndex);
-    void removeItemToCart(MenuItem menuItem) throws Exception;
+    void removeItemToCart(String itemName) throws Exception;
     Boolean isCartsEmpty();
 }

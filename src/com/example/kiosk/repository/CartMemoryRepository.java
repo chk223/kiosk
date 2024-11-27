@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CartMemoryRepository implements CartRepository{
 
     private static final Map<String, CartItem> cartStorage = new ConcurrentHashMap<>();
+    private static int cartstorageNumber = 1;
 
     @Override
     public void add(MenuItem menuItem) {
@@ -16,7 +17,7 @@ public class CartMemoryRepository implements CartRepository{
         if (cartItem != null) {
             cartItem.addQuantity(); // 기존 항목의 수량 증가
         } else {
-            cartStorage.put(menuItem.getItemName(), new CartItem(menuItem)); // 새 항목 추가
+            cartStorage.put(menuItem.getItemName(), new CartItem(menuItem, cartstorageNumber++)); // 새 항목 추가
         }
     }
 
@@ -36,6 +37,7 @@ public class CartMemoryRepository implements CartRepository{
     @Override
     public void removeAll() {
         cartStorage.clear();
+        cartstorageNumber=0;
     }
 
     @Override
@@ -47,4 +49,12 @@ public class CartMemoryRepository implements CartRepository{
     public double getTotalPrice() {
         return cartStorage.values().stream().mapToDouble(CartItem::getPrice).sum();
     }
+
+    @Override
+    public String getCartItemNameByIndex(int index) {
+        CartItem item = cartStorage.values().stream().filter(cartItem -> cartItem.getNumber() == index).
+                findFirst().orElseThrow(() -> new NoSuchElementException("해당 인덱스의 상품이 없음."));
+        return item.getName();
+    }
+
 }

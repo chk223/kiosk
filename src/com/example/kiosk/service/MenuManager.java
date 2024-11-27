@@ -43,7 +43,7 @@ public class MenuManager {
         Menu menu = getMenuByIndex(menuIndex);
         menu.displayMenuItems();
 
-        int menuItemIndex = VerifyInput.verify(0,menuRepository.countMenuItems(menuIndex));
+        int menuItemIndex = VerifyInput.validateAndReturnInput(0,menuRepository.countMenuItems(menuIndex));
         if(menuItemIndex != 0) {
             processMenuItemSelection(menu,menuItemIndex);
         }
@@ -55,8 +55,8 @@ public class MenuManager {
         menu.displaySpecificMenuItem(menuItemIndex);
         System.out.println();
         System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-        Format.displaySelectOption("확인", "취소");
-        int verified = VerifyInput.verify(Format.confirm, Format.cancel);
+        Format.displaySelectOneOfTheTwoOptions("확인", "취소");
+        int verified = VerifyInput.validateAndReturnInput(Format.confirm, Format.cancel);
         if (verified == 1) {
             cartRepository.add(menuItem);
             System.out.println("\n" + menuItem.getItemName() + " 이 장바구니에 추가되었습니다.");
