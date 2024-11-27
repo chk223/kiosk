@@ -1,6 +1,7 @@
 package com.example.kiosk.domain;
 
 import com.example.kiosk.Util.Format;
+import com.example.kiosk.exception.RepositoryException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,7 @@ public class Menu {
     public MenuItem getMenuItemByIndex(int index) {
         return IntStream.range(0,menuItems.size()).filter(idx -> idx== index-1)
                 .mapToObj(menuItems::get).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("입력된 인덱스에 해당하는 상품이 없음"));
+                .orElseThrow(() -> new RepositoryException(index));
     }
 
     /**

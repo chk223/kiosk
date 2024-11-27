@@ -2,6 +2,7 @@ package com.example.kiosk.service;
 
 import com.example.kiosk.domain.Menu;
 import com.example.kiosk.domain.MenuItem;
+import com.example.kiosk.exception.RepositoryException;
 import com.example.kiosk.repository.cartRepository.CartRepository;
 import com.example.kiosk.repository.menuRepository.MenuRepository;
 import com.example.kiosk.Util.Format;
@@ -95,6 +96,6 @@ public class MenuManager {
     private Menu getMenuByIndex(int menuIndex) {
         return menuRepository.getAllMenus().stream()
                 .filter(menu -> menu.getNumber() == menuIndex).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 번호의 메뉴가 없음. 선택한 번호: " + menuIndex));
+                .orElseThrow(() -> new RepositoryException(menuIndex));
     }
 }

@@ -2,6 +2,7 @@ package com.example.kiosk.service;
 
 import com.example.kiosk.domain.Menu;
 import com.example.kiosk.domain.MenuItem;
+import com.example.kiosk.exception.RepositoryException;
 import com.example.kiosk.repository.menuRepository.MenuRepository;
 
 import java.util.Arrays;
@@ -55,7 +56,7 @@ public class KioskInit {
                 MenuItem menuItem = new MenuItem((String)data[0],(double)data[1],(String)data[2]);
                 Menu menu = menuRepository.findMenu(name);
                 menuRepository.saveItem(menu,menuItem);
-            } catch (Exception e) {
+            } catch (RepositoryException e) {
                 System.out.println(e.getMessage());
             }
         });

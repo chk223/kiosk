@@ -2,6 +2,7 @@ package com.example.kiosk.repository.cartRepository;
 
 import com.example.kiosk.domain.CartItem;
 import com.example.kiosk.domain.MenuItem;
+import com.example.kiosk.exception.RepositoryException;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,10 +23,10 @@ public class CartMemoryRepository implements CartRepository{
     }
 
     @Override
-    public void remove(String name) throws Exception {
+    public void remove(String name) throws RepositoryException {
         CartItem cartItem = cartStorage.get(name);
         if (cartItem == null) {
-            throw new Exception("장바구니에 '" + name + "' 이 없음");
+            throw new RepositoryException(name);
         }
         if (cartItem.getQuantity() > 1) {
             cartItem.removeQuantity(); // 수량 감소

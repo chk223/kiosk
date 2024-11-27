@@ -2,6 +2,7 @@ package com.example.kiosk.service.cartService;
 
 import com.example.kiosk.domain.CartItem;
 import com.example.kiosk.domain.Grade;
+import com.example.kiosk.exception.RepositoryException;
 import com.example.kiosk.repository.menuRepository.MenuRepository;
 import com.example.kiosk.Util.Format;
 import com.example.kiosk.Util.VerifyInput;
@@ -37,7 +38,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeItemToCart(String itemName) throws Exception {
+    public void removeItemToCart(String itemName) throws RepositoryException {
         cartRepository.remove(itemName);
     }
 
@@ -79,7 +80,7 @@ public class CartServiceImpl implements CartService {
         try {
             System.out.println(targetNameForRemove+" 이 삭제되었습니다.");
             removeItemToCart(targetNameForRemove);
-        } catch (Exception e) {
+        } catch (RepositoryException e) {
             System.out.println(e.getMessage());
         }
     }

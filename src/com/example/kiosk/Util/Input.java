@@ -1,5 +1,7 @@
 package com.example.kiosk.Util;
 
+import com.example.kiosk.exception.InputException;
+
 import java.util.Scanner;
 
 public class Input {
@@ -15,7 +17,7 @@ public class Input {
             return scanner.nextInt();
         } catch (Exception e) {
             scanner.nextLine();
-            throw new Exception("입력 값이 잘못됨!");
+            throw new InputException();
         }
     }
 }

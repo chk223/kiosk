@@ -1,8 +1,12 @@
 package com.example.kiosk.Util;
 
+import com.example.kiosk.exception.InputException;
+
 import java.util.List;
 
 public class VerifyInput {
+    private static final String ERROR_MESSAGE = "화면에 표기 된 값을 입력해주세요.";
+    private static final String EXCEED_MESSAGE = "입력 횟수가 초과되었습니다.";
     /**
      * 해당 범위에 있는지 검증
      * @param min 최소값
@@ -30,20 +34,20 @@ public class VerifyInput {
                 if(verify) {
                     return input;
                 }
-                else System.out.println(min+"이상 "+max+" 이하의 정수를 입력해주세요.");
+                else displayErrorMessage(ERROR_MESSAGE);
             } catch (Exception e) {
                 maximumCount--;
-                System.out.println(min+"이상 "+max+" 이하의 정수를 입력해주세요.");
+                displayErrorMessage(ERROR_MESSAGE);
             }
         } while(maximumCount >0);
-        System.out.println("입력 횟수가 초과되었습니다.");
+        displayErrorMessage(EXCEED_MESSAGE);
         return 0;
     }
 
     /**
      * 입력 값이 숫자 리스트의 값 안에 있는지 검증 후 반환
      * @param numberList 숫자 리스트
-     * @return 참(입력 값이 숫자 리스트에 있음) 거짓 (입력 값이 숫자 리스트에 없음)
+     * @return 검증 된 입력 값 반환 / 0: 입력 횟수 초과 시 반환(이전 단계 돌아가기)
      */
     public static int validateNumberInList(List<Integer> numberList) {
         int maximumCount = 100;
@@ -55,16 +59,31 @@ public class VerifyInput {
                 if(verify) {
                     return input;
                 }
-                else System.out.println("화면에 표기 된 값을 입력해주세요.");
+                else displayErrorMessage(ERROR_MESSAGE);
             } catch (Exception e) {
                 maximumCount--;
-                System.out.println("화면에 표기 된 값을 입력해주세요.");
+                displayErrorMessage(ERROR_MESSAGE);
             }
         } while(maximumCount >0);
-        System.out.println("입력 횟수가 초과되었습니다.");
+        displayErrorMessage(EXCEED_MESSAGE);
         return 0;
     }
+
+    /**
+     * 입력 값이 숫자 리스트에 있는지 검증하여 참,거짓 반환
+     * @param input 입력 값
+     * @param numberList 숫자 리스트
+     * @return 참(리스트 안에 숫자 있음) 거짓(리스트 안에 숫자 없음)
+     */
     private static Boolean verifyContain(int input, List<Integer> numberList) {
         return !numberList.stream().filter(n -> n == input).findFirst().isEmpty();
+    }
+
+    /**
+     * message를 출력
+     * @param message 출력 될 내용
+     */
+    private static void displayErrorMessage(String message) {
+        System.out.println(message);
     }
 }

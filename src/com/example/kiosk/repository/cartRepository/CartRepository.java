@@ -2,6 +2,7 @@ package com.example.kiosk.repository.cartRepository;
 
 import com.example.kiosk.domain.CartItem;
 import com.example.kiosk.domain.MenuItem;
+import com.example.kiosk.exception.RepositoryException;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface CartRepository {
     /**
      * 장바구니에서 상품 개수 감소 (개수가 0이면 장바구니에서 제거)
      * @param name 상품 이름
-     * @throws Exception
+     * @throws RepositoryException
      */
-    void remove(String name) throws Exception;
+    void remove(String name) throws RepositoryException;
 
     /**
      * 장바구니 초기화
